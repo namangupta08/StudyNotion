@@ -122,6 +122,7 @@ exports.signUp = async (req,res) => {
                 message:"Invalid OTP",
             })
         }
+        
 
         //hash the pass
 
