@@ -25,7 +25,8 @@ async function sendVerificationEmail(email ,otp){
         console.log("error occured while sending otp mail" , error);
         throw(error);
     }
-}
+} 
+
 
 OTPSchema.pre("save" , async function(next){
     await sendVerificationEmail(this.email , this.otp);
