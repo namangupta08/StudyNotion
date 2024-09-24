@@ -2,14 +2,13 @@ const User = require('../models/User')
 const otpGenerator = require('otp-generator');
 const OTP = require('../models/OTP')
 const bcrypt = require("bcrypt")
+const Profile = require('../models/Profile')
 
 
 //sendotp
 exports.sendOTP = async (req,res) => {
     try {
-        const {email} = req.body; //fetching email
-
-        //checking user exist or not
+        const {email} = req.body; 
 
         const checkUser = await User.findOne({email});
 
@@ -95,7 +94,7 @@ exports.signUp = async (req,res) => {
         }
         //check user exist or not 
 
-        const existingUser = await OTP.findOne({email});
+        const existingUser = await User.findOne({email});
         if(existingUser){
             return res.status(400).json({
                 success:false,
@@ -131,10 +130,39 @@ exports.signUp = async (req,res) => {
 
         //create entry in db
 
-        const 
+        const profileDetails = await Profile.create({
+            gender:null,
+            dateofBirth:null,
+            about:null,
+            contactNumber:null
+        })
+
+        const user = await User.create({
+            firstName,
+            lastName,
+            email,
+            contactNumber,
+            password:hashedPassword,
+            accountType,
+            additionalDetails:profileDetails._id,
+            image: `https://api.dicebear.com/5.x/initials/svg?seed=${firstName} ${lastName}`,
+
+        })
         //return res
+
+        res.status(200).json({
+            success:true,
+            message:"User is registered successfully",
+            user,
+        })
     } catch (error) {
         console.log(error)
+        res.status(500).json({
+            success:false,
+            message:"User can not be registered , please try again",
+            user,
+        })
+
     }
 }
 
