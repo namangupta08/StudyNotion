@@ -21,7 +21,7 @@ exports.createCourse = async (req, res) => {
     //thumbnail
     const thumbnail = req.files.thumbnailImage;
 
-    
+
     //validation
     if (
       !courseName ||
@@ -52,12 +52,12 @@ exports.createCourse = async (req, res) => {
       });
     }
     //checking tag
-    const tagDetails = await Tag.findById(tag);
-    if (!tagDetails) {
+    const categoryDetails = await Category.findById(category)
+    if (!categoryDetails) {
       return res.status(404).json({
         success: false,
-        message: "tag Details  Not Found",
-      });
+        message: "Category Details Not Found",
+      })
     }
 
     //uploading image to cloudinary
@@ -73,7 +73,8 @@ exports.createCourse = async (req, res) => {
       instructor: instructorDetails._id,
       whatYouWillLearn: whatYouWillLearn,
       price,
-      tag: tagDetails._id,
+      tag,
+      category: categoryDetails._id,
       thumbnail: thumbnailImage.secure_url,
     });
 
@@ -90,16 +91,16 @@ exports.createCourse = async (req, res) => {
       { new: true }
     );
 
-    const tagDetails2 = await Tag.findByIdAndUpdate(
-      { tag },
-      {
-        $push: {
-          courses: newCourse._id,
+    const categoryDetails2 = await Category.findByIdAndUpdate(
+        { _id: category },
+        {
+          $push: {
+            courses: newCourse._id,
+          },
         },
-      },
-      { new: true }
-    );
-    console.log(tagDetails2);
+        { new: true }
+      )
+      console.log("HEREEEEEEEE", categoryDetails2)
 
     res.status(200).json({
       success: true,
