@@ -37,6 +37,9 @@ const Course = mongoose.Schema({
   image: {
     type: String,
   },
+  tag: {
+    type: String,
+  },
   category: {
 		type: mongoose.Schema.Types.ObjectId,
 		// required: true,
