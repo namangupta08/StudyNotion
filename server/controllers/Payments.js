@@ -92,8 +92,7 @@ exports.capturePayment = async (req, res) => {
 //verify the signature
 exports.verifySignature = async (req, res) => {
   //get the payment details
-  const { razorpay_payment_id, razorpay_order_id, razorpay_signature } =
-    req.body;
+  const { razorpay_payment_id, razorpay_order_id, razorpay_signature } = req.body;
   const { courses } = req.body;
   const userId = req.user.id;
 
@@ -175,6 +174,7 @@ exports.verifySignature = async (req, res) => {
       });
     }
   };
+  
 
   try {
     //verify the signature
