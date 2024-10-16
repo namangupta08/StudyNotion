@@ -10,6 +10,7 @@ const { default: mongoose } = require("mongoose");
 const crypto = require("crypto");
 const CourseProgress = require("../models/CourseProgress");
 
+
 exports.capturePayment = async (req, res) => {
   //get courseId and UserID
   const { courses } = req.body;
@@ -174,7 +175,7 @@ exports.verifySignature = async (req, res) => {
       });
     }
   };
-  
+
 
   try {
     //verify the signature
