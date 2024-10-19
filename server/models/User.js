@@ -16,6 +16,14 @@ const userSchema = mongoose.Schema({
     required: true,
     trim: true,
   },
+  active: {
+			type: Boolean,
+			default: true,
+		},
+		approved: {
+			type: Boolean,
+			default: true,
+		},
   password: {
     type: String,
     required: true,

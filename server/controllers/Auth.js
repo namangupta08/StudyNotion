@@ -2,6 +2,7 @@ const User = require("../models/User");
 const otpGenerator = require("otp-generator");
 const OTP = require("../models/OTP");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 const Profile = require("../models/Profile");
 const mailSender = require("../utils/mailSender");
 require("dotenv").config();
@@ -28,7 +29,7 @@ exports.sendOTP = async (req, res) => {
 
     console.log(otp);
 
-    var result = await otp.findOne({ otp: otp });
+    var result = await OTP.findOne({ otp: otp });
 
     while (result) {
       var otp = otpGenerator.generate(6, {
@@ -37,7 +38,7 @@ exports.sendOTP = async (req, res) => {
         specialChars: false,
       });
 
-      var result = await otp.findOne({ otp: otp });
+      var result = await OTP.findOne({ otp: otp });
     }
 
     const otpPayload = { email, otp };
@@ -63,7 +64,6 @@ exports.sendOTP = async (req, res) => {
 exports.signUp = async (req, res) => {
   try {
     //fetch data
-
     const {
       firstName,
       lastName,
@@ -108,35 +108,26 @@ exports.signUp = async (req, res) => {
       });
     }
 
-    //find most recent otp for user
-
-    const recentOtp = await OTP.find({ email })
-      .sort({ createdAt: -1 })
-      .limit(1);
-    console.log(recentOtp);
-
-    //validate otp
-
-    if (recentOtp.length == 0) {
-      //OTP not found
+    const response = await OTP.find({ email }).sort({ createdAt: -1 }).limit(1);
+    console.log(response);
+    if (response.length === 0) {
+      // OTP not found for the email
       return res.status(400).json({
         success: false,
-        message: "OTP not found",
+        message: "The OTP is not valid",
       });
-    } else if (recentOtp != otp) {
-      //OTP does not match
+    } else if (otp !== response[0].otp) {
+      // Invalid OTP
       return res.status(400).json({
         success: false,
-        message: "Invalid OTP",
+        message: "The OTP is not valid",
       });
     }
 
     //hash the pass
-
     const hashedPassword = await bcrypt.hash(password, 10);
 
     //create entry in db
-
     const profileDetails = await Profile.create({
       gender: null,
       dateofBirth: null,
@@ -271,25 +262,24 @@ exports.changePassword = async (req, res) => {
         )
       );
       console.log("Email sent successfully:", emailResponse.response);
-
     } catch (error) {
       return res.status(500).json({
-				success: false,
-				message: "Error occurred while sending email",
-				error: error.message,
-			});
+        success: false,
+        message: "Error occurred while sending email",
+        error: error.message,
+      });
     }
 
-    return res.status(200).json({ 
-      success: true, 
-      message: "Password updated successfully" 
-    }); 
+    return res.status(200).json({
+      success: true,
+      message: "Password updated successfully",
+    });
   } catch (error) {
     console.error("Error occurred while updating password:", error);
-		return res.status(500).json({
-			success: false,
-			message: "Error occurred while updating password",
-			error: error.message,
-		});
+    return res.status(500).json({
+      success: false,
+      message: "Error occurred while updating password",
+      error: error.message,
+    });
   }
 };

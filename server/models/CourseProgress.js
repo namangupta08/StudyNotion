@@ -5,6 +5,10 @@ const courseProgress = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Course",
   },
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+  },
   completedVedio: [
     {
       type: mongoose.Schema.Types.ObjectId,

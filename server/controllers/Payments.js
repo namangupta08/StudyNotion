@@ -5,11 +5,10 @@ const mailSender = require("../utils/mailSender");
 const {
   courseEnrollmentEmail,
 } = require("../mail/templates/courseEnrollmentEmail");
-const { paymentSuccess } = require("../mail/templates/paymentSuccess");
+const { paymentSuccess } = require("../mail/templates/paymentSuccessEmail");
 const { default: mongoose } = require("mongoose");
 const crypto = require("crypto");
 const CourseProgress = require("../models/CourseProgress");
-
 
 exports.capturePayment = async (req, res) => {
   //get courseId and UserID
@@ -93,7 +92,8 @@ exports.capturePayment = async (req, res) => {
 //verify the signature
 exports.verifySignature = async (req, res) => {
   //get the payment details
-  const { razorpay_payment_id, razorpay_order_id, razorpay_signature } = req.body;
+  const { razorpay_payment_id, razorpay_order_id, razorpay_signature } =
+    req.body;
   const { courses } = req.body;
   const userId = req.user.id;
 
@@ -176,7 +176,6 @@ exports.verifySignature = async (req, res) => {
     }
   };
 
-
   try {
     //verify the signature
     const generatedSignature = crypto
@@ -225,5 +224,67 @@ exports.sendPaymentSuccessEmail = async (req, res) => {
       success: false,
       message: error.message,
     });
+  }
+};
+
+const enrollStudents = async (courses, userId, res) => {
+  if (!courses || !userId) {
+    return res
+      .status(400)
+      .json({
+        success: false,
+        message: "Please Provide Course ID and User ID",
+      });
+  }
+
+  for (const courseId of courses) {
+    try {
+      // Find the course and enroll the student in it
+      const enrolledCourse = await Course.findOneAndUpdate(
+        { _id: courseId },
+        { $push: { studentsEnroled: userId } },
+        { new: true }
+      );
+
+      if (!enrolledCourse) {
+        return res
+          .status(500)
+          .json({ success: false, error: "Course not found" });
+      }
+      console.log("Updated course: ", enrolledCourse);
+
+      const courseProgress = await CourseProgress.create({
+        courseID: courseId,
+        userId: userId,
+        completedVideos: [],
+      });
+      // Find the student and add the course to their list of enrolled courses
+      const enrolledStudent = await User.findByIdAndUpdate(
+        userId,
+        {
+          $push: {
+            courses: courseId,
+            courseProgress: courseProgress._id,
+          },
+        },
+        { new: true }
+      );
+
+      console.log("Enrolled student: ", enrolledStudent);
+      // Send an email notification to the enrolled student
+      const emailResponse = await mailSender(
+        enrolledStudent.email,
+        `Successfully Enrolled into ${enrolledCourse.courseName}`,
+        courseEnrollmentEmail(
+          enrolledCourse.courseName,
+          `${enrolledStudent.firstName} ${enrolledStudent.lastName}`
+        )
+      );
+
+      console.log("Email sent successfully: ", emailResponse.response);
+    } catch (error) {
+      console.log(error);
+      return res.status(400).json({ success: false, error: error.message });
+    }
   }
 };
