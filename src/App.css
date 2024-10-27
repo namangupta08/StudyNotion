@@ -1,1 +1,126 @@
-/* write your css here */
+@tailwind base;
+@tailwind utilities;
+@tailwind components;
+
+html , body {
+    overflow-x: hidden;
+}
+
+.glass{
+    background: rgba(255, 255, 255, 0);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.grad{
+    position: absolute;
+width: 372.95px;
+height: 257.05px;
+left: calc(50% - 372.95px/2 - 76.53px);
+top: calc(50% - 257.05px/2 - 47.47px);
+
+/* Gradient/02 */
+
+background: linear-gradient(123.77deg, #8A2BE2 -6.46%, #FFA500 59.04%, #F8F8FF 124.53%);
+opacity: 0.2;
+filter: blur(34px);
+transform: matrix(1, 0, -0.03, 1, 0, 0);
+
+/* Inside auto layout */
+
+flex: none;
+order: 0;
+flex-grow: 0;
+z-index: 0;
+}
+
+.glass2{
+    /* From https://css.glass */
+  background: rgba(13, 18, 30, 0.75);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(7.3px);
+  -webkit-backdrop-filter: blur(7.3px);
+  border: 1px solid rgba(13, 18, 30, 0.3);
+  }
+  
+  .grad2{
+      position: absolute;
+  width: 372.95px;
+  height: 257.05px;
+  left: calc(50% - 372.95px/2 - 76.53px);
+  top: calc(50% - 257.05px/2 - 47.47px);
+  
+  /* Gradient/05 */
+  
+  background: linear-gradient(118.19deg, #1FA2FF -3.62%, #12D8FA 50.44%, #A6FFCB 104.51%);
+  opacity: 0.2;
+  filter: blur(34px);
+  transform: matrix(1, 0, -0.03, 1, 0, 0);
+  
+  /* Inside auto layout */
+  
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  z-index: 0;
+  }
+  
+.homepage_bg{
+    background: url('./assets/Images/bghome.svg');
+}
+.glow-on-hover {
+    width: inherit;
+    height: inherit;
+    border: none;
+    outline: none;
+    color: inherit; /* Inherit text color */
+    background: inherit; /* Inherit background color */
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    border-radius: inherit;
+    font-weight: inherit; /* Consistent font weight */
+}
+
+.glow-on-hover:before {
+    content: '';
+    background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    background-size: 400%;
+    z-index: -1;
+    filter: blur(5px);
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    animation: glowing 20s linear infinite;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    border-radius: 10px;
+}
+
+.glow-on-hover:hover:before {
+    opacity: 1; /* Show border glow on hover */
+}
+
+.glow-on-hover:after {
+    z-index: -1;
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: inherit; /* Keep button background */
+    left: 0;
+    top: 0;
+    border-radius: 10px;
+}
+
+@keyframes glowing {
+    0% { background-position: 0 0; }
+    50% { background-position: 400% 0; }
+    100% { background-position: 0 0; }
+}
