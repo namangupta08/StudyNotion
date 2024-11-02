@@ -6,6 +6,9 @@ import CTAButton from "../components/core/HomePage/Button";
 import Banner from "../assets/Images/banner.mp4";
 import CodeBlocks from "../components/core/HomePage/CodeBlocks";
 import Footer from "../components/common/Footer";
+import TimelineSection from "../components/core/HomePage/TimelineSection";
+import LearningLanguageSection from "../components/core/HomePage/LearningLanguageSection";
+import InstructorSection from "../components/core/HomePage/InstructorSection";
 function Home() {
   return (
     <div>
@@ -132,31 +135,38 @@ function Home() {
           </div>
         </div>
 
-        <div className='w-11/12 max-w-maxContent flex flex-col items-center justify-between gap-7 mx-auto'>
-          <div className='flex flex-row gap-5 mb-10 mt-[95px] lg:mt-20 lg:flex-row lg:gap-0 justify-between '>
-          <div className='text-4xl font-semibold lg:w-[45%]'>
-                            Get the Skills you need for a
-                            <HighlightText text={"Job that is in demand"} />
-                        </div>
+        <div className="w-11/12 max-w-maxContent flex flex-col items-center justify-between gap-7 mx-auto">
+          <div className="flex flex-row gap-5 mb-10 mt-[95px] lg:mt-20 lg:flex-row lg:gap-0 justify-between ">
+            <div className="text-4xl font-semibold lg:w-[45%]">
+              Get the Skills you need for a
+              <HighlightText text={"Job that is in demand"} />
+            </div>
 
-                        <div className='flex flex-col w-[40%] items-start'>
-                            <div className='text-[16px] mb-10 font-semibold'>
-                                The modern StudyNotion is the dictates its own terms. Today, to
-                                be a competitive specialist requires more than professional
-                                skills.
-                            </div>
-                            <CTAButton active={true} linkto={"/signup"}>
-                                Learn More
-                            </CTAButton>
-                        </div>
-
-                        
-
+            <div className="flex flex-col w-[40%] items-start">
+              <div className="text-[16px] mb-10 font-semibold">
+                The modern StudyNotion is the dictates its own terms. Today, to
+                be a competitive specialist requires more than professional
+                skills.
+              </div>
+              <CTAButton active={true} linkto={"/signup"}>
+                Learn More
+              </CTAButton>
+            </div>
           </div>
+          <TimelineSection />
+
+          <LearningLanguageSection />
         </div>
       </div>
 
       {/* Section3 */}
+
+      <div className='w-11/12 max-w-maxContent mx-auto items-center flex-col justify-between gap-8 text-white bg-richblack-900'> 
+
+            <InstructorSection/>
+
+            <h2 className='text-center text-4xl font-semibold mt-10'>Review From Other Learner</h2>
+      </div>
 
       {/* Footer */}
       <Footer />
