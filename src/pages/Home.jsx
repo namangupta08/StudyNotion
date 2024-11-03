@@ -9,6 +9,7 @@ import Footer from "../components/common/Footer";
 import TimelineSection from "../components/core/HomePage/TimelineSection";
 import LearningLanguageSection from "../components/core/HomePage/LearningLanguageSection";
 import InstructorSection from "../components/core/HomePage/InstructorSection";
+import ExploreMore from "../components/core/HomePage/ExploreMore";
 function Home() {
   return (
     <div>
@@ -112,6 +113,8 @@ function Home() {
             backgroudGradient={"grad2"}
           ></CodeBlocks>
         </div>
+
+        <ExploreMore/>
       </div>
 
       {/* Section2 */}
@@ -161,11 +164,12 @@ function Home() {
 
       {/* Section3 */}
 
-      <div className='w-11/12 max-w-maxContent mx-auto items-center flex-col justify-between gap-8 text-white bg-richblack-900'> 
+      <div className="w-11/12 max-w-maxContent mx-auto items-center flex-col justify-between gap-8 text-white bg-richblack-900">
+        <InstructorSection />
 
-            <InstructorSection/>
-
-            <h2 className='text-center text-4xl font-semibold mt-10'>Review From Other Learner</h2>
+        <h2 className="text-center text-4xl font-semibold mt-10">
+          Review From Other Learner
+        </h2>
       </div>
 
       {/* Footer */}
