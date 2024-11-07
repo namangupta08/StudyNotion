@@ -15,7 +15,7 @@ function Navbar() {
   };
   return (
     <div className="flex h-14 items-center justify-center border-b-[1px] border-b-richblack-700">
-      <div className="flex w-11/12 max-w-maxContent items-center justify-center">
+      <div className="flex w-11/12 max-w-maxContent items-center justify-between">
         {/* image */}
         <Link to="/">
           <img src={logo} alt="logo" width={160} height={42} loading="lazy" />
@@ -50,7 +50,7 @@ function Navbar() {
 
         {/* login,signip,dashboard */}
         <div className="flex gap-x-4 items-center">
-            
+
         </div>
       </div>
     </div>
