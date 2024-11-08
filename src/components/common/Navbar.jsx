@@ -21,6 +21,7 @@ function Navbar() {
           <img src={logo} alt="logo" width={160} height={42} loading="lazy" />
         </Link>
 
+
         {/* navbar */}
         <nav>
           <ul className="flex gap-x-3 text-richblack-25">
