@@ -9,6 +9,7 @@ function Navbar() {
   // const { user } = useSelector((state) => state.profile)
   // const { totalItems } = useSelector((state) => state.cart)
 
+  
   const location = useLocation();
   const matchRoute = (route) => {
     return matchPath({ path: route }, location.pathname);
