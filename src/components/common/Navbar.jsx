@@ -9,7 +9,7 @@ function Navbar() {
   // const { user } = useSelector((state) => state.profile)
   // const { totalItems } = useSelector((state) => state.cart)
 
-  
+
   const location = useLocation();
   const matchRoute = (route) => {
     return matchPath({ path: route }, location.pathname);
@@ -52,7 +52,7 @@ function Navbar() {
 
         {/* login,signip,dashboard */}
         <div className="flex gap-x-4 items-center">
-
+            
         </div>
       </div>
     </div>
