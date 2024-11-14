@@ -84,6 +84,7 @@ function Navbar() {
                               ))}
                           </>
                         ) : (
+
                             
                           <p className="text-center">No Courses Found</p>
                         )}
