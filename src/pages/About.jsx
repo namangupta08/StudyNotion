@@ -8,6 +8,7 @@ import FoundingStory from "../assets/Images/FoundingStory.png";
 import StatsComponenet from "../components/core/AboutPage/StatsComponenet";
 import LearningGrid from "../components/core/AboutPage/LearningGrid";
 import ContactFormSection from "../components/core/AboutPage/ContactFormSection";
+import Footer from "../components/common/Footer";
 
 const About = () => {
   return (
@@ -111,10 +112,13 @@ const About = () => {
       <StatsComponenet />
 
       {/* Section5 */}
-      <section className="mx-auto mt-20 flex w-11/12 max-w-maxContent flex-col justify-between gap-10 text-white">
+      <section className="mx-auto mt-20 flex w-11/12 max-w-maxContent flex-col justify-between gap-10 text-white mb-20">
         <LearningGrid/>
         <ContactFormSection/>
       </section>
+
+
+      <Footer/>
     </div>
   );
 };

@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form"
 import CountryCode from "../../data/countrycode.json"
 import { apiConnector } from "../../services/apiconnector"
 import { contactusEndpoint } from "../../services/apis"
+import Footer from "../common/Footer"
 
 const ContactUsForm = () => {
   const [loading, setLoading] = useState(false)
@@ -14,7 +15,7 @@ const ContactUsForm = () => {
     formState: { errors, isSubmitSuccessful },
   } = useForm()
   
-  
+
   const submitContactForm = async (data) => {
     // console.log("Form Data - ", data)
     try {
@@ -188,6 +189,7 @@ const ContactUsForm = () => {
         Send Message
       </button>
     </form>
+    
   )
 }
 
