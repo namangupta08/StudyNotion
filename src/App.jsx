@@ -9,6 +9,7 @@ import UpdatePassword from "./pages/UpdatePassword";
 import VerifyEmail from "./pages/VerifyEmail";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
   return (
@@ -24,6 +25,17 @@ function App() {
 
         <Route path="about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
+        <Route 
+      element={
+        
+          <Dashboard />
+        
+      }
+    >
+      {/* <Route path="dashboard/my-profile" element={<MyProfile />} />
+      
+      <Route path="dashboard/Settings" element={<Settings />} /> */}
+      </Route>
       </Routes>
     </div>
   );
