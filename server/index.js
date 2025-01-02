@@ -19,7 +19,6 @@ require("events").EventEmitter.defaultMaxListeners = 15;
 
 PORT = process.env.PORT || 4000;
 
-//database connect
 database.connect();
 
 //middleware
